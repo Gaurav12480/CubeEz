@@ -26,12 +26,12 @@ fun CircularCheckbox(
     checked: Boolean,
     onCheckedChange: (() -> Unit)?,
     modifier: Modifier = Modifier,
-    size: Dp = 24.dp,
+    size: Dp = 32.dp,
     color: Color = MaterialTheme.colorScheme.primary,
     enabled: Boolean = true
 ) {
     val borderColor = if (checked) color else MaterialTheme.colorScheme.onSurfaceVariant
-    val backgroundColor = if (checked) color else Color.Transparent
+    val backgroundColor = if (checked) color else MaterialTheme.colorScheme.onBackground
 
     Box(
         modifier = modifier
@@ -60,7 +60,7 @@ fun CircularCheckbox(
                 imageVector = Icons.Default.Check,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.size(size * 0.6f)
+                modifier = Modifier.size(size * 0.8f)
             )
         }
     }

@@ -11,3 +11,6 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 // Color.kt
 val CheckboxGreen = Color(0xFF4CBB17)
+
+val progressColor = Color.Green
+val backgroundColor = Color.White
