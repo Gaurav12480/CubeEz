@@ -156,6 +156,6 @@ fun StepCardPreview() {
 
 @Preview
 @Composable
-private fun preview() {
+private fun HomeScreenTopAppBarPreview() {
     HomeScreenTopAppBar()
 }

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">CubeEz</string>
+
+
+    <!-- *TEMPORARY STRINGS *-->
+
+    <string name="s1">Step 1</string>
+    <string name="s1_des">We start by forming a Daisy — a plus sign of white edge pieces around the yellow center.</string>
+    <string name="s1_daisy">Daisy</string>
+    <string name="s1_case1">Case 1</string>
+    <string name="s1_case2">Case 2</string>
+    <string name="s1_case3">Case 3</string>
+    <string name="s1_daisy_D">Once you\'ve moved all the white edge pieces to the top, you\'ll see something like this. (You can ignore the adjacent colors for now.)</string>
+    <string name="s1_case1_D">If you see a white edge piece in the bottom layer, clear any white edges from the top using U moves, then move it to the top with F2.</string>
+    <string name="s1_case2_D">If the white edge is on a side and paired with another white, rotate upper layer to empty the top, then insert that piece into the daisy. (U\' R in this image)</string>
+    <string name="s1_case3_D">If the white edge is twisted in the top or bottom layer, move it to the side with F or F\' — it will become Case 2.</string>
+
 </resources>
