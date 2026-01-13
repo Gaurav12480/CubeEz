@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -26,42 +27,45 @@ fun CircularCheckbox(
     checked: Boolean,
     onCheckedChange: (() -> Unit)?,
     modifier: Modifier = Modifier,
-    size: Dp = 32.dp,
+    size: Dp = 36.dp,
     color: Color = MaterialTheme.colorScheme.primary,
     enabled: Boolean = true
 ) {
     val borderColor = if (checked) color else MaterialTheme.colorScheme.onSurfaceVariant
-    val backgroundColor = if (checked) color else MaterialTheme.colorScheme.onBackground
+    val backgroundColor = if (checked) color else MaterialTheme.colorScheme.background
 
-    Box(
-        modifier = modifier
-            .size(size)
-            .clip(CircleShape)
-            .then(
-                if (onCheckedChange != null && enabled) {
-                    Modifier.clickable(
-                        onClick = onCheckedChange,
-                        role = Role.Checkbox
-                    )
-                } else Modifier
-            )
-            .border(
-                width = 2.dp,
-                color = borderColor,
-                shape = CircleShape
-            )
-            .background(
-                backgroundColor
-            ),
-        contentAlignment = Alignment.Center
-    ) {
-        if (checked) {
-            Icon(
-                imageVector = Icons.Default.Check,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.size(size * 0.8f)
-            )
+    Box (modifier = modifier) {
+        Box(
+            modifier = Modifier
+                .size(size)
+                .padding(4.dp)
+                .clip(CircleShape)
+                .then(
+                    if (onCheckedChange != null && enabled) {
+                        Modifier.clickable(
+                            onClick = onCheckedChange,
+                            role = Role.Checkbox
+                        )
+                    } else Modifier
+                )
+                .border(
+                    width = 2.dp,
+                    color = borderColor,
+                    shape = CircleShape
+                )
+                .background(
+                    backgroundColor
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            if (checked) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary,
+                    modifier = Modifier.size(size * 0.8f)
+                )
+            }
         }
     }
 }

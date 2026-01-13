@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
@@ -13,9 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.cubeez.ui.home.HomeScreenTopAppBar
 import com.example.cubeez.ui.home.HomeScreen
-import com.example.cubeez.ui.step.StepScreen
 import com.example.cubeez.ui.theme.CubeEzTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CubeEzTheme {
                 Scaffold {
-                    StepScreen()
+                    HomeScreen()
                 }
             }
         }
@@ -40,7 +37,6 @@ fun HomeScreenPreview() {
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background)
                 .safeDrawingPadding(),
-            topBar = { HomeScreenTopAppBar() }
         ) { padding ->
             HomeScreen(
                 modifier = Modifier.padding(padding)

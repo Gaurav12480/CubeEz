@@ -5,14 +5,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Card
@@ -28,7 +33,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.cubeez.R
+import com.example.cubeez.ui.components.CircularCheckbox
 
 @Composable
 fun CaseCard(
@@ -51,25 +56,27 @@ fun CaseCard(
         modifier = modifier
             .clip(shape = RoundedCornerShape(8))
             .border(width = 2.dp, color = MaterialTheme.colorScheme.outline, RoundedCornerShape(8))
-            .wrapContentSize()
-            .shadow(elevation = 8.dp)
             .clickable(onClick = { viewMode = true })
     ) {
-        Column(
-            modifier = Modifier,
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            modifier = Modifier
+                .width(240.dp)
+                .aspectRatio(1f)
         ) {
             Image(
                 painter = painterResource(image),
                 contentDescription = null,
-                modifier = Modifier.size(220.dp),
-                contentScale = ContentScale.Fit
+                modifier = Modifier
+                    .size(200.dp)
+                    .align(alignment = Alignment.TopCenter),
+                contentScale = ContentScale.Fit,
             )
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(color = MaterialTheme.colorScheme.onPrimary)
                     .padding(4.dp)
+                    .align(alignment = Alignment.BottomCenter)
                 ,
                 text = stringResource(title),
                 fontSize = 20.sp,
@@ -82,7 +89,7 @@ fun CaseCard(
 
                 image = R.drawable.blankcube,
                 title = R.string.s1_case1,
-                description = R.string.s1_case1_D,
+                description = description,
             )
         }
     }
@@ -109,11 +116,19 @@ fun CaseDialog(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
                     .padding(16.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
                 Row (
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    CircularCheckbox(
+                        checked = false,
+                        onCheckedChange = {},
+                    )
                     IconButton (onClick = onDismiss) {
                         Icon(
                             imageVector = Icons.Filled.Clear,
@@ -148,9 +163,23 @@ fun CaseDialog(
 @Preview
 @Composable
 private fun CaseCardPreview() {
-    CaseCard(
-        R.drawable.blankcube,
-        R.string.s1,
-        R.string.s1_des
-    )
+    Column (Modifier.fillMaxSize()) {
+        CaseCard(
+            R.drawable.blankcube,
+            R.string.s1,
+            R.string.s1_des
+        )
+    }
+}
+@Preview
+@Composable
+private fun CaseDialogPreview() {
+    Column (Modifier.fillMaxSize()) {
+        CaseDialog(
+            onDismiss = {},
+            R.drawable.blankcube,
+            R.string.s1,
+            R.string.s1_des
+        )
+    }
 }

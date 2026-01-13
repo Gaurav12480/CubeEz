@@ -4,11 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Scaffold
@@ -38,7 +35,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 .padding(paddingValues)
         ) {
             LazyVerticalGrid (
-                columns = GridCells.Adaptive(360.dp),
+                columns = GridCells.Adaptive(300.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
