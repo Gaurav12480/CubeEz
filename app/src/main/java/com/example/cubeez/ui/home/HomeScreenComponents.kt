@@ -1,10 +1,12 @@
 package com.example.cubeez.ui.home
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -59,49 +61,42 @@ fun ProgressBar(progress: Float, modifier: Modifier = Modifier) {
     }
 }
 @Composable
-fun StepCard(checked: Boolean, modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .background(Color.Transparent),
-    ) {
-
+fun StepCard(
+    checked: Boolean,
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier) {
         Card(
             modifier = Modifier
-                .align(alignment = Alignment.Center)
                 .fillMaxWidth()
-                .padding(14.dp),
+                .padding(20.dp),
+            elevation = CardDefaults.cardElevation(6.dp),
+            border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.outline)
         ) {
-            Row (
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
+            Row(
                 modifier = Modifier
                     .height(120.dp)
                     .fillMaxWidth()
+                    .padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
 
-                Box (
-                    modifier = Modifier
-                        .align(alignment = Alignment.CenterVertically)
-                        .fillMaxWidth(.64f)
-                        .fillMaxHeight()
+                Column(
+                    modifier = Modifier.weight(1f)
                 ) {
                     Text(
                         text = "Step: 1",
                         fontSize = 20.sp,
-                        modifier = Modifier
-                            .align(alignment = Alignment.TopStart)
-                            .padding(start = 4.dp, top = 4.dp),
+                        modifier = Modifier.padding(bottom = 4.dp)
                     )
+
                     AutoSizeText(
                         text = "Orient yellow edges",
                         maxLines = 1,
-                        maxFontSize = 60.sp,
-                        modifier = Modifier
-                            .align(alignment = Alignment.CenterStart)
-                            .padding(start = 4.dp, top = 4.dp),
+                        maxFontSize = 60.sp
                     )
                 }
-                Spacer(Modifier.padding(horizontal = 4.dp))
+
                 Image(
                     painter = painterResource(id = R.drawable.blankcube),
                     contentDescription = null,
@@ -110,15 +105,15 @@ fun StepCard(checked: Boolean, modifier: Modifier = Modifier) {
                 )
             }
         }
+
         if (checked) {
             CircularCheckbox(
                 checked = true,
                 onCheckedChange = null,
                 color = CheckboxGreen,
-                modifier = Modifier.align(alignment = Alignment.TopEnd)
+                modifier = Modifier.align(Alignment.TopEnd)
             )
         }
-
     }
 }
 

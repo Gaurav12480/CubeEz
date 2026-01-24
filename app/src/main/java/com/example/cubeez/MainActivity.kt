@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.cubeez.ui.home.HomeScreen
+import com.example.cubeez.ui.step.StepScreen
 import com.example.cubeez.ui.theme.CubeEzTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CubeEzTheme {
-                HomeScreen()
+                StepScreen()
             }
         }
     }

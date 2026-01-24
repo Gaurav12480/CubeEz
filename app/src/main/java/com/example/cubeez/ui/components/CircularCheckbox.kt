@@ -27,7 +27,7 @@ fun CircularCheckbox(
     checked: Boolean,
     onCheckedChange: (() -> Unit)?,
     modifier: Modifier = Modifier,
-    size: Dp = 36.dp,
+    size: Dp = 40.dp,
     color: Color = MaterialTheme.colorScheme.primary,
     enabled: Boolean = true
 ) {
