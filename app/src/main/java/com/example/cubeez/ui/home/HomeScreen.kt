@@ -26,6 +26,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .safeDrawingPadding(),
+            
         topBar = { HomeScreenTopAppBar() }
     ) { paddingValues ->
 

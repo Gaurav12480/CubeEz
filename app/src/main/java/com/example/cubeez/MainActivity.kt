@@ -21,9 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CubeEzTheme {
-                Scaffold {
-                    HomeScreen()
-                }
+                HomeScreen()
             }
         }
     }

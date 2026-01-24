@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,12 +18,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -160,26 +162,52 @@ fun CaseDialog(
     }
 }
 
-@Preview
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun CaseCardPreview() {
-    Column (Modifier.fillMaxSize()) {
-        CaseCard(
-            R.drawable.blankcube,
-            R.string.s1,
-            R.string.s1_des
-        )
-    }
+fun StepScreenTopAppBar(currentStep: Int, modifier: Modifier = Modifier) {
+    TopAppBar(
+        title = {
+            Text(
+                text = stringResource(R.string.step_number_title, currentStep)
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Go Back"
+                )
+            }
+        }
+    )
 }
+
+//@Preview
+//@Composable
+//private fun CaseCardPreview() {
+//    Column (Modifier.fillMaxSize()) {
+//        CaseCard(
+//            R.drawable.blankcube,
+//            R.string.s1,
+//            R.string.s1_des
+//        )
+//    }
+//}
+//@Preview
+//@Composable
+//private fun CaseDialogPreview() {
+//    Column (Modifier.fillMaxSize()) {
+//        CaseDialog(
+//            onDismiss = {},
+//            R.drawable.blankcube,
+//            R.string.s1,
+//            R.string.s1_des
+//        )
+//    }
+//}
+
 @Preview
 @Composable
-private fun CaseDialogPreview() {
-    Column (Modifier.fillMaxSize()) {
-        CaseDialog(
-            onDismiss = {},
-            R.drawable.blankcube,
-            R.string.s1,
-            R.string.s1_des
-        )
-    }
+private fun StepScreenTopAppBarPreview() {
+    StepScreenTopAppBar(currentStep = 1)
 }

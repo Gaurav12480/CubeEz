@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CubeEz</string>
 
+    <string name="step_number_title">Step %d of 8</string>
 
     <!-- *TEMPORARY STRINGS *-->
 
