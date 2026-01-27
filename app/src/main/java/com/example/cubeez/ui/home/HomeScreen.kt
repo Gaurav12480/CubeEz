@@ -8,19 +8,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(viewModel: HomeScreenViewModel = viewModel(), modifier: Modifier = Modifier) {
     val progress by remember { mutableFloatStateOf(0.5f) }
+
+    val steps by viewModel.steps.collectAsState()
 
     Scaffold(
         modifier = modifier
@@ -41,8 +46,11 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                     .weight(1f),
                 contentPadding = PaddingValues(12.dp)
             ) {
-                items(10) {
-                    StepCard(checked = true)
+                items(steps) {
+                    StepCard(
+                        checked = true,     //TEMPORARY
+                        step = it
+                    )
                 }
             }
 
@@ -55,5 +63,5 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+//    HomeScreen()
 }

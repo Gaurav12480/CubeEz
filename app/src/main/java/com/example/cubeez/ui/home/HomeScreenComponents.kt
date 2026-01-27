@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -33,12 +33,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.cubeez.R
+import com.example.cubeez.model.Step
 import com.example.cubeez.ui.components.CircularCheckbox
 import com.example.cubeez.ui.theme.CheckboxGreen
 import com.example.cubeez.ui.theme.backgroundColor
 import com.example.cubeez.ui.theme.progressColor
-import com.sillydevices.compose.ui.AutoSizeText
 
 val clipShape: Shape = RoundedCornerShape(16.dp)
 @Composable
@@ -63,6 +64,7 @@ fun ProgressBar(progress: Float, modifier: Modifier = Modifier) {
 @Composable
 fun StepCard(
     checked: Boolean,
+    step: Step,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
@@ -85,22 +87,22 @@ fun StepCard(
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(
-                        text = "Step: 1",
+                        text = "Step: " + step.stepId.toString(),
                         fontSize = 20.sp,
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
-
-                    AutoSizeText(
-                        text = "Orient yellow edges",
-                        maxLines = 1,
-                        maxFontSize = 60.sp
+                    Text(
+                        text = step.stepName,
+                        fontSize = 30.sp,
+                        lineHeight = 32.sp
                     )
                 }
-
-                Image(
-                    painter = painterResource(id = R.drawable.blankcube),
-                    contentDescription = null,
-                    modifier = Modifier.wrapContentSize(),
+                AsyncImage(
+                    model = step.imageUrl,
+                    contentDescription = step.stepName,
+                    modifier = Modifier
+                        .height(140.dp)
+                    ,
                     contentScale = ContentScale.Fit
                 )
             }
@@ -130,7 +132,8 @@ fun HomeScreenTopAppBar(modifier: Modifier = Modifier) {
             ) {
                 Image(
                     painter = painterResource(R.drawable.cubeezlogo),
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(60.dp)
                 )
                 Spacer(modifier = Modifier.padding(2.dp))
                 Text(
@@ -146,7 +149,13 @@ fun HomeScreenTopAppBar(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun StepCardPreview() {
-    StepCard(checked = true)
+    StepCard(checked = true,
+        step = Step(
+        imageUrl = "https://raw.githubusercontent.com/Gaurav12480/cube-api/main/images/steps/step1.png",
+        stepId = 1,
+        stepName = "Daisy"
+        )
+    )
 }
 
 @Preview

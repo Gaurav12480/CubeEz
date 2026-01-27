@@ -5,7 +5,7 @@
 
     <!-- *TEMPORARY STRINGS *-->
 
-    <string name="s1">Step 1</string>
+    <string name="s1">Cross</string>
     <string name="s1_des">We start by forming a Daisy — a plus sign of white edge pieces around the yellow center.</string>
     <string name="s1_daisy">Daisy</string>
     <string name="s1_case1">Case 1</string>

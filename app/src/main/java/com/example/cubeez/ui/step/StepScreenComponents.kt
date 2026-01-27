@@ -1,5 +1,6 @@
 package com.example.cubeez.ui.step
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,10 +9,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -61,11 +65,11 @@ fun CaseCard(
                 .size(260.dp)
                 .padding(16.dp)
                 .clickable { viewMode = true },
-                shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(8.dp),
             border = BorderStroke(
                 width = 2.dp,
-                color = MaterialTheme.colorScheme.outline,
-            ),
+                color = MaterialTheme.colorScheme.outline
+                ),
             elevation = CardDefaults.cardElevation(8.dp)
         ) {
             Column(
@@ -114,6 +118,7 @@ fun CaseCard(
     }
 }
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun CaseDialog(
     onDismiss: () -> Unit,
@@ -122,62 +127,123 @@ fun CaseDialog(
     description: Int,
     modifier: Modifier = Modifier
 ) {
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.screenWidthDp > configuration.screenHeightDp
+
     Dialog(onDismissRequest = onDismiss) {
         Card(
             shape = RoundedCornerShape(12.dp),
             modifier = modifier
                 .padding(16.dp)
-                .fillMaxWidth()
-                .wrapContentHeight()
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(16.dp)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                Row (
+            if (isLandscape) {
+                // Landscape
+                Column (
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(16.dp)
                 ) {
-                    CircularCheckbox(
-                        checked = false,
-                        onCheckedChange = {},
-                    )
-                    IconButton (onClick = onDismiss) {
-                        Icon(
-                            imageVector = Icons.Filled.Clear,
-                            contentDescription = "Clear",
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        CircularCheckbox(
+                            checked = false,
+                            onCheckedChange = {},
                         )
+                        IconButton(onClick = onDismiss) {
+                            Icon(
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = "Clear",
+                            )
+                        }
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.Top
+                    ) {
+                        Image(
+                            painter = painterResource(image),
+                            contentDescription = null,
+                            modifier = Modifier.size(260.dp),
+                            contentScale = ContentScale.Fit
+                        )
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = stringResource(title),
+                                fontSize = 22.sp,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+
+                            Text(
+                                text = stringResource(description),
+                                fontSize = 16.sp,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(top = 8.dp)
+                            )
+                        }
                     }
                 }
 
-                Image(
-                    painter = painterResource(image),
-                    contentDescription = null,
-                    modifier = Modifier.size(260.dp),
-                    contentScale = ContentScale.Fit
-                )
-                Text(
-                    text = stringResource(title),
-                    fontSize = 22.sp,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
-                Text(
-                    text = stringResource(description),
-                    fontSize = 16.sp,
-                    textAlign = TextAlign.Center,
+            } else {
+                //Portrait
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
-                        .padding(top = 8.dp)
-                )
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(16.dp)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Row (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        CircularCheckbox(
+                            checked = false,
+                            onCheckedChange = {},
+                        )
+                        IconButton (onClick = onDismiss) {
+                            Icon(
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = "Clear",
+                            )
+                        }
+                    }
+
+                    Image(
+                        painter = painterResource(image),
+                        contentDescription = null,
+                        modifier = Modifier.size(260.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                    Text(
+                        text = stringResource(title),
+                        fontSize = 22.sp,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                    Text(
+                        text = stringResource(description),
+                        fontSize = 16.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                    )
+                }
             }
         }
     }
 }
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -199,15 +265,27 @@ fun StepScreenTopAppBar(currentStep: Int, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview
+//@Preview
+//@Composable
+//private fun CaseCardPreview() {
+//    Column (Modifier.fillMaxSize()) {
+//        CaseCard(
+//            R.drawable.blankcube,
+//            R.string.s1,
+//            R.string.s1_des,
+//            true
+//        )
+//    }
+//}
+@Preview(widthDp = 800, heightDp = 300)
 @Composable
-private fun CaseCardPreview() {
+private fun CaseDialogPreviewLandscape() {
     Column (Modifier.fillMaxSize()) {
-        CaseCard(
+        CaseDialog(
+            onDismiss = {},
             R.drawable.blankcube,
             R.string.s1,
-            R.string.s1_des,
-            true
+            R.string.s1_des
         )
     }
 }
@@ -224,8 +302,8 @@ private fun CaseDialogPreview() {
     }
 }
 
-@Preview
-@Composable
-private fun StepScreenTopAppBarPreview() {
-    StepScreenTopAppBar(currentStep = 1)
-}
+//@Preview
+//@Composable
+//private fun StepScreenTopAppBarPreview() {
+//    StepScreenTopAppBar(currentStep = 1)
+//}
