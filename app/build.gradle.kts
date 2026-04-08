@@ -33,11 +33,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     buildFeatures {
         compose = true
+    }
+}
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
     }
 }
 
@@ -60,14 +63,14 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    implementation("com.sillydevices:compose.ui.autosizetext-desktop:0.1.1")
+    implementation(libs.compose.ui.autosizetext.desktop)
     implementation(libs.androidx.compose.material.icons.extended)
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    runtimeOnly("androidx.lifecycle:lifecycle-viewmodel:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
-    implementation("io.coil-kt:coil-compose:2.6.0")
-    implementation("androidx.navigation:navigation-compose:2.9.7")
-    implementation("org.jetbrains.kotlin:kotlin-serialization:2.3.10")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    runtimeOnly(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlin.serialization)
 }

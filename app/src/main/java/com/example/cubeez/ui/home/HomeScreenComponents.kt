@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -65,6 +66,7 @@ fun ProgressBar(progress: Float, modifier: Modifier = Modifier) {
 fun StepCard(
     checked: Boolean,
     step: Step,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
@@ -79,12 +81,15 @@ fun StepCard(
                 modifier = Modifier
                     .height(120.dp)
                     .fillMaxWidth()
-                    .padding(12.dp),
+                    .clickable(onClick = onClick)
+                    .padding(12.dp)
+                    ,
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
                 Column(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
                 ) {
                     Text(
                         text = "Step: " + step.stepId.toString(),
@@ -154,7 +159,8 @@ fun StepCardPreview() {
         imageUrl = "https://raw.githubusercontent.com/Gaurav12480/cube-api/main/images/steps/step1.png",
         stepId = 1,
         stepName = "Daisy"
-        )
+        ),
+        onClick = {}
     )
 }
 

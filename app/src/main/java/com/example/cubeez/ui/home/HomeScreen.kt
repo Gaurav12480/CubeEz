@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,9 +23,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable
-fun HomeScreen(viewModel: HomeScreenViewModel = viewModel(), modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeScreenViewModel = viewModel()) {
     val progress by remember { mutableFloatStateOf(0.5f) }
-
     val steps by viewModel.steps.collectAsState()
 
     Scaffold(
@@ -49,11 +49,11 @@ fun HomeScreen(viewModel: HomeScreenViewModel = viewModel(), modifier: Modifier 
                 items(steps) {
                     StepCard(
                         checked = true,     //TEMPORARY
-                        step = it
+                        step = it,
+                        onClick = {}
                     )
                 }
             }
-
             ProgressBar(progress)
         }
     }

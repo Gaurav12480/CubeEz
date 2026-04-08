@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cubeez.api.api
 import com.example.cubeez.model.Step
-import com.example.cubeez.repository.HomeRepository
+import com.example.cubeez.repository.CubeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ class HomeScreenViewModel: ViewModel() {
     private val _steps = MutableStateFlow<List<Step>>(emptyList())
     var steps = _steps.asStateFlow()
 
-    private val repository = HomeRepository(api)
+    private val repository = CubeRepository(api)
 
     init {
         viewModelScope.launch{
