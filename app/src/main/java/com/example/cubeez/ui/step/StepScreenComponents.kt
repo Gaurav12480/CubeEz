@@ -247,7 +247,7 @@ fun CaseDialog(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StepScreenTopAppBar(currentStep: Int, modifier: Modifier = Modifier) {
+fun StepScreenTopAppBar(currentStep: Int, modifier: Modifier = Modifier, onClick: ()-> Unit) {
     TopAppBar(
         title = {
             Text(
@@ -255,7 +255,7 @@ fun StepScreenTopAppBar(currentStep: Int, modifier: Modifier = Modifier) {
             )
         },
         navigationIcon = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = onClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Go Back"

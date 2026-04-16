@@ -14,18 +14,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.cubeez.R
 
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun StepScreen(
-    stepName: Int,
-    stepDescription: Int,
-    modifier: Modifier = Modifier
+    stepName: String?,
+    stepId: Int?,
+    modifier: Modifier = Modifier,
+    navController: NavController
 ) {
     val configuration = LocalConfiguration.current
     val isLandscape =
@@ -33,7 +34,7 @@ fun StepScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        topBar = { StepScreenTopAppBar(1) }
+        topBar = { StepScreenTopAppBar(currentStep = stepId ?: 0, onClick = { navController.popBackStack() }) }
     ) { paddingValues ->
 
         if (isLandscape) {
@@ -46,15 +47,17 @@ fun StepScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Text(
-                    text = stringResource(stepName),
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Text(
-                    text = stringResource(stepDescription),
-                    style = MaterialTheme.typography.bodyMedium
+                if (stepName != null && stepId != null) {
+                    Text(
+                        text = stepName,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Text(
+                        text = "Step: $stepId",
+                        style = MaterialTheme.typography.bodyMedium
 
-                )
+                    )
+                }
 
                 LazyRow(
                     modifier = Modifier
@@ -90,16 +93,18 @@ fun StepScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        Text(
-                            text = stringResource(stepName),
-                            style = MaterialTheme.typography.titleLarge,
-                            textAlign = TextAlign.Center
-                        )
-                        Text(
-                            text = stringResource(stepDescription),
-                            style = MaterialTheme.typography.bodyMedium,
-                            textAlign = TextAlign.Center
-                        )
+                        if (stepName != null && stepId != null) {
+                            Text(
+                                text = stepName,
+                                style = MaterialTheme.typography.titleLarge,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = "Step: $stepId",
+                                style = MaterialTheme.typography.bodyMedium,
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
                 }
                 items(10) {
@@ -118,5 +123,5 @@ fun StepScreen(
 @Preview
 @Composable
 private fun StepScreenPreview() {
-    StepScreen(R.string.s1, stepDescription = R.string.s1_des)
+//    StepScreen(stringResource(R.string.s1), 101)
 }

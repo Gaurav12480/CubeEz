@@ -20,10 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.cubeez.navigation.Screen
 
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeScreenViewModel = viewModel()) {
+fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeScreenViewModel = viewModel(), navController: NavController) {
     val progress by remember { mutableFloatStateOf(0.5f) }
     val steps by viewModel.steps.collectAsState()
 
@@ -50,7 +52,9 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeScreenViewModel = v
                     StepCard(
                         checked = true,     //TEMPORARY
                         step = it,
-                        onClick = {}
+                        onClick = {
+                            navController.navigate(Screen.Step.route +"/${it.stepName}/${it.stepId}")
+                        }
                     )
                 }
             }
