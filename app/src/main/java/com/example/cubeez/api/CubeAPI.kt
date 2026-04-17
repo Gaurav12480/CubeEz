@@ -1,9 +1,9 @@
 package com.example.cubeez.api
 
-import com.example.cubeez.model.HomeResponse
+import com.example.cubeez.model.StepsResponse
 import retrofit2.http.GET
 
 interface CubeApi {
-    @GET("home.json")
-    suspend fun getHome(): HomeResponse
+    @GET("steps.json")
+    suspend fun getHome(): StepsResponse
 }

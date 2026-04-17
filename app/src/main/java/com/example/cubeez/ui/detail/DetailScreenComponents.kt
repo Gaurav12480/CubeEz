@@ -1,4 +1,4 @@
-package com.example.cubeez.ui.step
+package com.example.cubeez.ui.detail
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
@@ -9,12 +9,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -247,7 +245,7 @@ fun CaseDialog(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun StepScreenTopAppBar(currentStep: Int, modifier: Modifier = Modifier, onClick: ()-> Unit) {
+fun DetailScreenTopAppBar(currentStep: Int, modifier: Modifier = Modifier, onClick: ()-> Unit) {
     TopAppBar(
         title = {
             Text(

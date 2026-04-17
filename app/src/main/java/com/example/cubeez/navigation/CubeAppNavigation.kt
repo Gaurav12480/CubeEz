@@ -9,7 +9,7 @@ import androidx.navigation.navArgument
 import com.example.cubeez.navigation.Screen.Home
 import com.example.cubeez.navigation.Screen.Step
 import com.example.cubeez.ui.home.HomeScreen
-import com.example.cubeez.ui.step.StepScreen
+import com.example.cubeez.ui.detail.DetailScreen
 
 @Composable
 fun CubeAppNavigation() {
@@ -27,7 +27,7 @@ fun CubeAppNavigation() {
         ) {
             val stepName = it.arguments?.getString("stepName")
             val stepId = it.arguments?.getInt("stepId")
-            StepScreen(
+            DetailScreen(
                 stepId = stepId,
                 stepName = stepName,
                 navController = navController

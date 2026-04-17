@@ -156,9 +156,11 @@ fun HomeScreenTopAppBar(modifier: Modifier = Modifier) {
 fun StepCardPreview() {
     StepCard(checked = true,
         step = Step(
-        imageUrl = "https://raw.githubusercontent.com/Gaurav12480/cube-api/main/images/steps/step1.png",
-        stepId = 1,
-        stepName = "Daisy"
+            imageUrl = "https://raw.githubusercontent.com/Gaurav12480/cube-api/main/images/steps/step1.png",
+            stepId = 1,
+            stepName = "Daisy",
+            cases = TODO(),
+            stepDescription = TODO()
         ),
         onClick = {}
     )

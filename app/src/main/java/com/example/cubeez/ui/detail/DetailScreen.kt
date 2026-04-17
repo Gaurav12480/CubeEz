@@ -1,4 +1,4 @@
-package com.example.cubeez.ui.step
+package com.example.cubeez.ui.detail
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +22,7 @@ import com.example.cubeez.R
 
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
-fun StepScreen(
+fun DetailScreen(
     stepName: String?,
     stepId: Int?,
     modifier: Modifier = Modifier,
@@ -34,7 +34,7 @@ fun StepScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        topBar = { StepScreenTopAppBar(currentStep = stepId ?: 0, onClick = { navController.popBackStack() }) }
+        topBar = { DetailScreenTopAppBar(currentStep = stepId ?: 0 , onClick = { navController.popBackStack() }) }
     ) { paddingValues ->
 
         if (isLandscape) {
@@ -122,6 +122,6 @@ fun StepScreen(
 
 @Preview
 @Composable
-private fun StepScreenPreview() {
+private fun DetailScreenPreview() {
 //    StepScreen(stringResource(R.string.s1), 101)
 }
