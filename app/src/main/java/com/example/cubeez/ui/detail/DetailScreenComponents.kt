@@ -2,7 +2,6 @@ package com.example.cubeez.ui.detail
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,22 +36,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import coil.compose.AsyncImage
 import com.example.cubeez.R
 import com.example.cubeez.ui.components.CircularCheckbox
 import com.example.cubeez.ui.theme.CheckboxGreen
 
 @Composable
 fun CaseCard(
-    image: Int,
-    title: Int,
-    description: Int,
+    image: String?,
+    title: Int?,
+    description: String?,
     checked: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -76,8 +74,8 @@ fun CaseCard(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
-                Image(
-                    painter = painterResource(image),
+                AsyncImage(
+                    model = image,
                     contentDescription = null,
                     modifier = Modifier
                         .weight(1f)
@@ -89,7 +87,7 @@ fun CaseCard(
                         .fillMaxWidth()
                         .background(MaterialTheme.colorScheme.onPrimary)
                         .padding(vertical = 4.dp),
-                    text = stringResource(title),
+                    text = title.toString(),
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center
                 )
@@ -109,8 +107,8 @@ fun CaseCard(
     if (viewMode) {
         CaseDialog(
             onDismiss = {},
-            image = R.drawable.blankcube,
-            title = R.string.s1_case1,
+            image = image,
+            title = title,
             description = description,
         )
     }
@@ -120,9 +118,9 @@ fun CaseCard(
 @Composable
 fun CaseDialog(
     onDismiss: () -> Unit,
-    image: Int,
-    title: Int,
-    description: Int,
+    image: String?,
+    title: Int?,
+    description: String?,
     modifier: Modifier = Modifier
 ) {
     val configuration = LocalConfiguration.current
@@ -163,8 +161,8 @@ fun CaseDialog(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.Top
                     ) {
-                        Image(
-                            painter = painterResource(image),
+                        AsyncImage(
+                            model = image,
                             contentDescription = null,
                             modifier = Modifier.size(260.dp),
                             contentScale = ContentScale.Fit
@@ -174,13 +172,13 @@ fun CaseDialog(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = stringResource(title),
+                                text = "Case: $title",
                                 fontSize = 22.sp,
                                 modifier = Modifier.padding(top = 8.dp)
                             )
 
                             Text(
-                                text = stringResource(description),
+                                text = description ?: "",
                                 fontSize = 16.sp,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier.padding(top = 8.dp)
@@ -217,19 +215,19 @@ fun CaseDialog(
                         }
                     }
 
-                    Image(
-                        painter = painterResource(image),
+                    AsyncImage(
+                        model = image,
                         contentDescription = null,
                         modifier = Modifier.size(260.dp),
                         contentScale = ContentScale.Fit
                     )
                     Text(
-                        text = stringResource(title),
+                        text = "Case: $title",
                         fontSize = 22.sp,
                         modifier = Modifier.padding(top = 8.dp)
                     )
                     Text(
-                        text = stringResource(description),
+                        text = description ?: "",
                         fontSize = 16.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
@@ -275,30 +273,30 @@ fun DetailScreenTopAppBar(currentStep: Int, modifier: Modifier = Modifier, onCli
 //        )
 //    }
 //}
-@Preview(widthDp = 800, heightDp = 300)
-@Composable
-private fun CaseDialogPreviewLandscape() {
-    Column (Modifier.fillMaxSize()) {
-        CaseDialog(
-            onDismiss = {},
-            R.drawable.blankcube,
-            R.string.s1,
-            R.string.s1_des
-        )
-    }
-}
-@Preview
-@Composable
-private fun CaseDialogPreview() {
-    Column (Modifier.fillMaxSize()) {
-        CaseDialog(
-            onDismiss = {},
-            R.drawable.blankcube,
-            R.string.s1,
-            R.string.s1_des
-        )
-    }
-}
+//@Preview(widthDp = 800, heightDp = 300)
+//@Composable
+//private fun CaseDialogPreviewLandscape() {
+//    Column (Modifier.fillMaxSize()) {
+//        CaseDialog(
+//            onDismiss = {},
+//            R.drawable.blankcube,
+//            R.string.s1,
+//            R.string.s1_des
+//        )
+//    }
+//}
+//@Preview
+//@Composable
+//private fun CaseDialogPreview() {
+//    Column (Modifier.fillMaxSize()) {
+//        CaseDialog(
+//            onDismiss = {},
+//            R.drawable.blankcube,
+//            R.string.s1,
+//            R.string.s1_des
+//        )
+//    }
+//}
 
 //@Preview
 //@Composable

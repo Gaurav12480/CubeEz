@@ -19,17 +19,14 @@ fun CubeAppNavigation() {
             HomeScreen(navController = navController)
         }
         composable(
-            route = Step.route + "/{stepName}/{stepId}",
+            route = Step.route + "/{stepId}",
             arguments = listOf(
-                navArgument("stepName") { type = NavType.StringType },
                 navArgument("stepId") { type = NavType.IntType }
             )
         ) {
-            val stepName = it.arguments?.getString("stepName")
             val stepId = it.arguments?.getInt("stepId")
             DetailScreen(
                 stepId = stepId,
-                stepName = stepName,
                 navController = navController
             )
         }

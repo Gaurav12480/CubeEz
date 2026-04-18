@@ -1,4 +1,4 @@
-package com.example.cubeez.ui.home
+package com.example.cubeez.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,21 +9,23 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class HomeScreenViewModel: ViewModel() {
+class StepViewModel: ViewModel() {
     private val _steps = MutableStateFlow<List<Step>>(emptyList())
-    var steps = _steps.asStateFlow()
+    val steps = _steps.asStateFlow()
 
     private val repository = CubeRepository(api)
 
     init {
-        viewModelScope.launch{
+        viewModelScope.launch {
             try {
-                _steps.value = repository.getHomeSteps()
+                _steps.value = repository.getSteps()
             }
             catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
-
+    fun getStep(stepId: Int): Step? {
+        return _steps.value.find {it.stepId == stepId}
+    }
 }

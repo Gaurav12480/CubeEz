@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface CubeApi {
     @GET("steps.json")
-    suspend fun getHome(): StepsResponse
+    suspend fun getSteps(): StepsResponse
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.navigation.compose.rememberNavController
 import com.example.cubeez.navigation.CubeAppNavigation
 import com.example.cubeez.ui.theme.CubeEzTheme
 
@@ -14,7 +13,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CubeEzTheme {
-                val navController = rememberNavController()
                 CubeAppNavigation()
             }
         }

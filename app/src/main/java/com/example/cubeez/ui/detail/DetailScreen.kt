@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -17,17 +18,24 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.cubeez.R
+import com.example.cubeez.viewmodel.StepViewModel
 
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun DetailScreen(
-    stepName: String?,
     stepId: Int?,
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    viewModel: StepViewModel = viewModel()
 ) {
+
+    val step = viewModel.getStep(stepId ?: 0)
+    val stepName = step?.stepName
+    val stepDescription = step?.stepDescription
+
+
     val configuration = LocalConfiguration.current
     val isLandscape =
         configuration.screenWidthDp > configuration.screenHeightDp
@@ -47,13 +55,13 @@ fun DetailScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                if (stepName != null && stepId != null) {
+                if (stepName != null && stepDescription != null) {
                     Text(
                         text = stepName,
                         style = MaterialTheme.typography.titleLarge
                     )
                     Text(
-                        text = "Step: $stepId",
+                        text = stepDescription,
                         style = MaterialTheme.typography.bodyMedium
 
                     )
@@ -65,12 +73,12 @@ fun DetailScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(10) {
+                    items(step?.cases ?: emptyList()) {
                         CaseCard(
-                            R.drawable.blankcube,
-                            R.string.s1,
-                            R.string.s1_des,
-                            true
+                            image = it.caseImage,
+                            title = it.caseId,
+                            description = it.caseDescription,
+                            checked = true
                         )
                     }
                 }
@@ -93,26 +101,26 @@ fun DetailScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        if (stepName != null && stepId != null) {
+                        if (stepName != null && stepDescription != null) {
                             Text(
                                 text = stepName,
                                 style = MaterialTheme.typography.titleLarge,
                                 textAlign = TextAlign.Center
                             )
                             Text(
-                                text = "Step: $stepId",
+                                text = stepDescription,
                                 style = MaterialTheme.typography.bodyMedium,
                                 textAlign = TextAlign.Center
                             )
                         }
                     }
                 }
-                items(10) {
+                items(step?.cases ?: emptyList()) {
                     CaseCard(
-                        R.drawable.blankcube,
-                        R.string.s1,
-                        R.string.s1_des,
-                        true
+                        image = it.caseImage,
+                        title = it.caseId,
+                        description = it.caseDescription,
+                        checked = true
                     )
                 }
             }

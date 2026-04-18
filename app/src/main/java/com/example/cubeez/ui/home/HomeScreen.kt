@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,10 +21,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.cubeez.navigation.Screen
+import com.example.cubeez.viewmodel.StepViewModel
 
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeScreenViewModel = viewModel(), navController: NavController) {
+fun HomeScreen(modifier: Modifier = Modifier, viewModel: StepViewModel = viewModel(), navController: NavController) {
     val progress by remember { mutableFloatStateOf(0.5f) }
     val steps by viewModel.steps.collectAsState()
 
@@ -53,7 +53,7 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: HomeScreenViewModel = v
                         checked = true,     //TEMPORARY
                         step = it,
                         onClick = {
-                            navController.navigate(Screen.Step.route +"/${it.stepName}/${it.stepId}")
+                            navController.navigate(Screen.Step.route +"/${it.stepId}")
                         }
                     )
                 }
