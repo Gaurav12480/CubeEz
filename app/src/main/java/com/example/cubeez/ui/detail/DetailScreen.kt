@@ -12,6 +12,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -25,13 +27,14 @@ import com.example.cubeez.viewmodel.StepViewModel
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun DetailScreen(
-    stepId: Int?,
+    stepId: Int,
     modifier: Modifier = Modifier,
     navController: NavController,
     viewModel: StepViewModel = viewModel()
 ) {
 
-    val step = viewModel.getStep(stepId ?: 0)
+    val steps by viewModel.steps.collectAsState()
+    val step = steps.find { it.stepId == stepId }
     val stepName = step?.stepName
     val stepDescription = step?.stepDescription
 
@@ -42,7 +45,7 @@ fun DetailScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        topBar = { DetailScreenTopAppBar(currentStep = stepId ?: 0 , onClick = { navController.popBackStack() }) }
+        topBar = { DetailScreenTopAppBar(currentStep = stepId, onClick = { navController.popBackStack() }) }
     ) { paddingValues ->
 
         if (isLandscape) {
@@ -54,18 +57,14 @@ fun DetailScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-                if (stepName != null && stepDescription != null) {
-                    Text(
-                        text = stepName,
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                    Text(
-                        text = stepDescription,
-                        style = MaterialTheme.typography.bodyMedium
-
-                    )
-                }
+                Text(
+                    text = stepName?: "",
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Text(
+                    text = stepDescription?: "",
+                    style = MaterialTheme.typography.bodyMedium
+                )
 
                 LazyRow(
                     modifier = Modifier
@@ -101,18 +100,16 @@ fun DetailScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        if (stepName != null && stepDescription != null) {
-                            Text(
-                                text = stepName,
-                                style = MaterialTheme.typography.titleLarge,
-                                textAlign = TextAlign.Center
-                            )
-                            Text(
-                                text = stepDescription,
-                                style = MaterialTheme.typography.bodyMedium,
-                                textAlign = TextAlign.Center
-                            )
-                        }
+                        Text(
+                            text = stepName?: "",
+                            style = MaterialTheme.typography.titleLarge,
+                            textAlign = TextAlign.Center
+                        )
+                        Text(
+                            text = stepDescription?: "",
+                            style = MaterialTheme.typography.bodyMedium,
+                            textAlign = TextAlign.Center
+                        )
                     }
                 }
                 items(step?.cases ?: emptyList()) {

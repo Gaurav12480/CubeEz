@@ -24,7 +24,7 @@ fun CubeAppNavigation() {
                 navArgument("stepId") { type = NavType.IntType }
             )
         ) {
-            val stepId = it.arguments?.getInt("stepId")
+            val stepId = it.arguments!!.getInt("stepId")
             DetailScreen(
                 stepId = stepId,
                 navController = navController
