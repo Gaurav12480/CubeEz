@@ -14,6 +14,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -37,7 +40,9 @@ fun DetailScreen(
     val step = steps.find { it.stepId == stepId }
     val stepName = step?.stepName
     val stepDescription = step?.stepDescription
-
+    var selectedCase by rememberSaveable {
+        mutableStateOf<Int?>(null)
+    }
 
     val configuration = LocalConfiguration.current
     val isLandscape =
@@ -76,11 +81,12 @@ fun DetailScreen(
                         CaseCard(
                             image = it.caseImage,
                             title = it.caseId,
-                            description = it.caseDescription,
-                            checked = true
+                            checked = true,
+                            onCardClick = { selectedCase = it.caseId },
                         )
                     }
                 }
+
             }
         }
 
@@ -116,11 +122,20 @@ fun DetailScreen(
                     CaseCard(
                         image = it.caseImage,
                         title = it.caseId,
-                        description = it.caseDescription,
-                        checked = true
+                        checked = true,
+                        onCardClick = { selectedCase = it.caseId }
                     )
                 }
             }
+        }
+        val case = selectedCase
+        if (case != null) {
+            CaseDialog(
+                onDismiss = { selectedCase = null },
+                image = step?.cases?.find { it.caseId == case }?.caseImage,
+                title = step?.cases?.find { it.caseId == case }?.caseId,
+                description = step?.cases?.find { it.caseId == case }?.caseDescription
+            )
         }
     }
 }
@@ -128,5 +143,5 @@ fun DetailScreen(
 @Preview
 @Composable
 private fun DetailScreenPreview() {
-//    StepScreen(stringResource(R.string.s1), 101)
+
 }

@@ -1,6 +1,5 @@
 package com.example.cubeez.ui.detail
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,10 +28,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -41,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import coil.compose.AsyncImage
 import com.example.cubeez.R
 import com.example.cubeez.ui.components.CircularCheckbox
@@ -50,17 +47,16 @@ import com.example.cubeez.ui.theme.CheckboxGreen
 fun CaseCard(
     image: String?,
     title: Int?,
-    description: String?,
     checked: Boolean,
-    modifier: Modifier = Modifier,
+    onCardClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    var viewMode by remember { mutableStateOf(false) }
     Box {
         Card(
             modifier = modifier
                 .size(260.dp)
                 .padding(16.dp)
-                .clickable { viewMode = true },
+                .clickable(onClick = onCardClick),
             shape = RoundedCornerShape(8.dp),
             border = BorderStroke(
                 width = 2.dp,
@@ -104,17 +100,8 @@ fun CaseCard(
             )
         }
     }
-    if (viewMode) {
-        CaseDialog(
-            onDismiss = {},
-            image = image,
-            title = title,
-            description = description,
-        )
-    }
 }
 
-@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun CaseDialog(
     onDismiss: () -> Unit,
@@ -126,10 +113,16 @@ fun CaseDialog(
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.screenWidthDp > configuration.screenHeightDp
 
-    Dialog(onDismissRequest = onDismiss) {
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false
+        )
+    ) {
         Card(
             shape = RoundedCornerShape(12.dp),
             modifier = modifier
+                .fillMaxWidth(0.8f)
                 .padding(16.dp)
         ) {
             if (isLandscape) {
@@ -138,6 +131,7 @@ fun CaseDialog(
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.background)
                         .padding(16.dp)
+
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -158,30 +152,38 @@ fun CaseDialog(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 16.dp),
-                        horizontalArrangement = Arrangement.Center,
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
                         verticalAlignment = Alignment.Top
                     ) {
                         AsyncImage(
                             model = image,
                             contentDescription = null,
-                            modifier = Modifier.size(260.dp),
+                            modifier = Modifier.weight(0.5f),
                             contentScale = ContentScale.Fit
                         )
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.weight(1f)
+                        Column (
+                            modifier = Modifier
+                                .weight(0.5f)
+                                .verticalScroll(rememberScrollState()),
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(
                                 text = "Case: $title",
                                 fontSize = 22.sp,
-                                modifier = Modifier.padding(top = 8.dp)
+                                textAlign = TextAlign.Center,
+
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 8.dp)
                             )
 
                             Text(
                                 text = description ?: "",
                                 fontSize = 16.sp,
                                 textAlign = TextAlign.Center,
-                                modifier = Modifier.padding(top = 8.dp)
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 8.dp)
                             )
                         }
                     }
@@ -214,11 +216,13 @@ fun CaseDialog(
                             )
                         }
                     }
-
                     AsyncImage(
                         model = image,
                         contentDescription = null,
-                        modifier = Modifier.size(260.dp),
+                        modifier = Modifier
+                            .fillMaxWidth(1f)
+                            .aspectRatio(1f)
+                            .align(Alignment.CenterHorizontally),
                         contentScale = ContentScale.Fit
                     )
                     Text(
