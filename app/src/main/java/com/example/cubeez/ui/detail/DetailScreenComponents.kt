@@ -1,5 +1,6 @@
 package com.example.cubeez.ui.detail
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -102,6 +103,7 @@ fun CaseCard(
     }
 }
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun CaseDialog(
     onDismiss: () -> Unit,
