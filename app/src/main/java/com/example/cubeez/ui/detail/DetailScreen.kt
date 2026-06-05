@@ -23,8 +23,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.cubeez.database.CompletedCase
 import com.example.cubeez.viewmodel.StepViewModel
 
 @SuppressLint("ConfigurationScreenWidthHeight")
@@ -33,10 +33,10 @@ fun DetailScreen(
     stepId: Int,
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: StepViewModel = viewModel()
-) {
+    stepViewModel: StepViewModel
+    ) {
 
-    val steps by viewModel.steps.collectAsState()
+    val steps by stepViewModel.steps.collectAsState()
     val step = steps.find { it.stepId == stepId }
     val stepName = step?.stepName
     val stepDescription = step?.stepDescription
@@ -81,8 +81,9 @@ fun DetailScreen(
                         CaseCard(
                             image = it.caseImage,
                             title = it.caseId,
-                            checked = true,
-                            onCardClick = { selectedCase = it.caseId },
+                            checked = stepViewModel.isCompleted(stepId, it.caseId).collectAsState(initial = false),
+                            onCheckedChange = { stepViewModel.toggle(CompletedCase(stepId, it.caseId))},
+                            onCardClick = { selectedCase = it.caseId }
                         )
                     }
                 }
@@ -122,7 +123,8 @@ fun DetailScreen(
                     CaseCard(
                         image = it.caseImage,
                         title = it.caseId,
-                        checked = true,
+                        checked = stepViewModel.isCompleted(stepId, it.caseId).collectAsState(initial = false),
+                        onCheckedChange = { stepViewModel.toggle(CompletedCase(stepId, it.caseId))},
                         onCardClick = { selectedCase = it.caseId }
                     )
                 }

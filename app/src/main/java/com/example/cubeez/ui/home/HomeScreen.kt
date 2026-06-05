@@ -25,7 +25,7 @@ import com.example.cubeez.viewmodel.StepViewModel
 
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, viewModel: StepViewModel = viewModel(), navController: NavController) {
+fun HomeScreen(modifier: Modifier = Modifier, viewModel: StepViewModel, navController: NavController) {
     val progress by remember { mutableFloatStateOf(0.5f) }
     val steps by viewModel.steps.collectAsState()
 

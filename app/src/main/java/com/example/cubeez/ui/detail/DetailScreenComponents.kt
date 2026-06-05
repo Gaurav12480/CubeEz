@@ -29,6 +29,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -48,7 +49,8 @@ import com.example.cubeez.ui.theme.CheckboxGreen
 fun CaseCard(
     image: String?,
     title: Int?,
-    checked: Boolean,
+    checked: State<Boolean>,
+    onCheckedChange: () -> Unit,
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -91,10 +93,10 @@ fun CaseCard(
             }
 
         }
-        if (checked) {
+        if (checked.value) {
             CircularCheckbox(
                 checked = true,
-                onCheckedChange = null,
+                onCheckedChange = onCheckedChange,
                 color = CheckboxGreen,
                 modifier = Modifier
                     .align(alignment = Alignment.TopEnd)
