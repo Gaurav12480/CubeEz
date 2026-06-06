@@ -29,7 +29,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -49,7 +48,7 @@ import com.example.cubeez.ui.theme.CheckboxGreen
 fun CaseCard(
     image: String?,
     title: Int?,
-    checked: State<Boolean>,
+    checked: Boolean,
     onCheckedChange: () -> Unit,
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -93,7 +92,7 @@ fun CaseCard(
             }
 
         }
-        if (checked.value) {
+        if (checked) {
             CircularCheckbox(
                 checked = true,
                 onCheckedChange = onCheckedChange,
@@ -112,6 +111,8 @@ fun CaseDialog(
     image: String?,
     title: Int?,
     description: String?,
+    checked: Boolean,
+    onCheckedChange: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val configuration = LocalConfiguration.current
@@ -129,6 +130,7 @@ fun CaseDialog(
                 .fillMaxWidth(0.8f)
                 .padding(16.dp)
         ) {
+
             if (isLandscape) {
                 // Landscape
                 Column (
@@ -142,8 +144,9 @@ fun CaseDialog(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         CircularCheckbox(
-                            checked = false,
-                            onCheckedChange = {},
+                            checked = checked,
+                            onCheckedChange = onCheckedChange,
+                            color = CheckboxGreen
                         )
                         IconButton(onClick = onDismiss) {
                             Icon(
@@ -210,8 +213,9 @@ fun CaseDialog(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         CircularCheckbox(
-                            checked = false,
-                            onCheckedChange = {},
+                            checked = checked,
+                            onCheckedChange = onCheckedChange,
+                            color = CheckboxGreen
                         )
                         IconButton (onClick = onDismiss) {
                             Icon(
