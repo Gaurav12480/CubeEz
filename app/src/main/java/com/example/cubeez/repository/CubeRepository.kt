@@ -22,4 +22,8 @@ class CubeRepository(private val api: CubeApi, private val cubeDao: CubeDao) {
     fun isCompleted(stepId: Int, caseId: Int) : Flow<Boolean> {
         return cubeDao.isCompleted(stepId, caseId)
     }
+
+    fun casesFromStepId(stepId: Int): Flow<Int> {
+        return cubeDao.casesFromStepId(stepId)
+    }
 }

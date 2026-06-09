@@ -6,4 +6,6 @@ data class Step(
     val stepDescription: String,
     val stepId: Int,
     val stepName: String
-)
+) {
+
+}

@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cubeez.database.CompletedCase
 import com.example.cubeez.model.Case
-import com.example.cubeez.viewmodel.StepViewModel
+import com.example.cubeez.viewmodel.CubeViewModel
 
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
@@ -34,10 +34,10 @@ fun DetailScreen(
     stepId: Int,
     modifier: Modifier = Modifier,
     navController: NavController,
-    stepViewModel: StepViewModel
+    cubeViewModel: CubeViewModel
     ) {
 
-    val steps by stepViewModel.steps.collectAsState()
+    val steps by cubeViewModel.steps.collectAsState()
     val step = steps.find { it.stepId == stepId }
     val stepName = step?.stepName
     val stepDescription = step?.stepDescription
@@ -79,12 +79,12 @@ fun DetailScreen(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(step?.cases ?: emptyList()) {
-                        val checked = stepViewModel.isCompleted(stepId, it.caseId).collectAsState(initial = false).value
+                        val checked = cubeViewModel.isCompleted(stepId, it.caseId).collectAsState(initial = false).value
                         CaseCard(
                             image = it.caseImage,
                             title = it.caseId,
                             checked = checked,
-                            onCheckedChange = { stepViewModel.toggle(CompletedCase(stepId, it.caseId)) },
+                            onCheckedChange = { cubeViewModel.toggle(CompletedCase(stepId, it.caseId)) },
                             onCardClick = { selectedCase = it }
                         )
                     }
@@ -122,13 +122,13 @@ fun DetailScreen(
                     }
                 }
                 items(step?.cases ?: emptyList()) {
-                    val checked = stepViewModel.isCompleted(stepId, it.caseId).collectAsState(initial = false).value
+                    val checked = cubeViewModel.isCompleted(stepId, it.caseId).collectAsState(initial = false).value
 
                     CaseCard(
                         image = it.caseImage,
                         title = it.caseId,
                         checked = checked,
-                        onCheckedChange = { stepViewModel.toggle(CompletedCase(stepId, it.caseId))},
+                        onCheckedChange = { cubeViewModel.toggle(CompletedCase(stepId, it.caseId))},
                         onCardClick = { selectedCase = it }
                     )
                 }
@@ -136,7 +136,7 @@ fun DetailScreen(
         }
         selectedCase?.let { case ->
 
-            val checked by stepViewModel
+            val checked by cubeViewModel
                 .isCompleted(stepId, case.caseId)
                 .collectAsState(false)
 
@@ -147,7 +147,7 @@ fun DetailScreen(
                 description = case.caseDescription,
                 checked = checked,
                 onCheckedChange = {
-                    stepViewModel.toggle(
+                    cubeViewModel.toggle(
                         CompletedCase(stepId, case.caseId)
                     )
                 }

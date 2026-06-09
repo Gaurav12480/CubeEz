@@ -30,4 +30,8 @@ interface CubeDao {
         stepId: Int,
         caseId: Int
     ): Flow<Boolean>
+
+    @Query("""SELECT COUNT(*) FROM CompletedCase WHERE stepId = :stepId""")
+    fun casesFromStepId(stepId: Int): Flow<Int>
+
 }

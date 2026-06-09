@@ -18,16 +18,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.cubeez.navigation.Screen
-import com.example.cubeez.viewmodel.StepViewModel
+import com.example.cubeez.viewmodel.CubeViewModel
 
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, viewModel: StepViewModel, navController: NavController) {
+fun HomeScreen(modifier: Modifier = Modifier, cubeViewModel: CubeViewModel, navController: NavController) {
     val progress by remember { mutableFloatStateOf(0.5f) }
-    val steps by viewModel.steps.collectAsState()
+    val steps by cubeViewModel.steps.collectAsState()
 
     Scaffold(
         modifier = modifier
@@ -49,8 +48,9 @@ fun HomeScreen(modifier: Modifier = Modifier, viewModel: StepViewModel, navContr
                 contentPadding = PaddingValues(12.dp)
             ) {
                 items(steps) {
+                    val isStepCompleted = cubeViewModel.isStepCompleted(it.stepId).collectAsState(false).value
                     StepCard(
-                        checked = true,     //TEMPORARY
+                        checked = isStepCompleted,
                         step = it,
                         onClick = {
                             navController.navigate(Screen.Step.route +"/${it.stepId}")
