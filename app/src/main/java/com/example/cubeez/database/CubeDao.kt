@@ -34,4 +34,6 @@ interface CubeDao {
     @Query("""SELECT COUNT(*) FROM CompletedCase WHERE stepId = :stepId""")
     fun casesFromStepId(stepId: Int): Flow<Int>
 
+    @Query("""SELECT COUNT(*) FROM CompletedCase""")
+    fun completedCases(): Flow<Int>
 }

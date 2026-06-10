@@ -13,8 +13,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,7 +23,7 @@ import com.example.cubeez.viewmodel.CubeViewModel
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, cubeViewModel: CubeViewModel, navController: NavController) {
-    val progress by remember { mutableFloatStateOf(0.5f) }
+    val progress by cubeViewModel.getProgress().collectAsState(0f)
     val steps by cubeViewModel.steps.collectAsState()
 
     Scaffold(
