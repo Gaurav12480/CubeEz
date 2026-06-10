@@ -116,9 +116,10 @@ fun StepCard(
         if (checked) {
             CircularCheckbox(
                 checked = true,
-                onCheckedChange = null,
+                onCheckedChange = {  },
                 color = CheckboxGreen,
-                modifier = Modifier.align(Alignment.TopEnd)
+                modifier = Modifier.align(Alignment.TopEnd),
+                enabled = false
             )
         }
     }
@@ -151,20 +152,6 @@ fun HomeScreenTopAppBar(modifier: Modifier = Modifier) {
     )
 }
 
-@Preview
-@Composable
-fun StepCardPreview() {
-    StepCard(checked = true,
-        step = Step(
-            imageUrl = "https://raw.githubusercontent.com/Gaurav12480/cube-api/main/images/steps/step1.png",
-            stepId = 1,
-            stepName = "Daisy",
-            cases = TODO(),
-            stepDescription = TODO()
-        ),
-        onClick = {}
-    )
-}
 
 @Preview
 @Composable

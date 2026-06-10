@@ -95,7 +95,7 @@ fun CaseCard(
         if (checked) {
             CircularCheckbox(
                 checked = true,
-                onCheckedChange = onCheckedChange,
+                onCheckedChange = null,
                 color = CheckboxGreen,
                 modifier = Modifier
                     .align(alignment = Alignment.TopEnd)

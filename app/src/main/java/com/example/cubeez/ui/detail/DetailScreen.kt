@@ -54,6 +54,7 @@ fun DetailScreen(
         topBar = { DetailScreenTopAppBar(currentStep = stepId, onClick = { navController.popBackStack() }) }
     ) { paddingValues ->
 
+        //Landscape
         if (isLandscape) {
             Column(
                 modifier = Modifier
@@ -93,6 +94,7 @@ fun DetailScreen(
             }
         }
 
+        //Portrait
         else {
             LazyColumn(
                 modifier = Modifier
