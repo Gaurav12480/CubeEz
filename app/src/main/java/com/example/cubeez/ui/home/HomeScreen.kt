@@ -28,8 +28,7 @@ fun HomeScreen(modifier: Modifier = Modifier, cubeViewModel: CubeViewModel, navC
 
     Scaffold(
         modifier = modifier
-            .fillMaxSize()
-            .safeDrawingPadding(),
+            .fillMaxSize(),
         topBar = { HomeScreenTopAppBar() }
     ) { paddingValues ->
 

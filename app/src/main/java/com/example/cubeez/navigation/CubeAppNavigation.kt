@@ -1,6 +1,11 @@
 package com.example.cubeez.navigation
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,7 +22,13 @@ fun CubeAppNavigation(cubeViewModel: CubeViewModel) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Home.route) {
         composable(Home.route) {
-            HomeScreen(navController = navController, cubeViewModel = cubeViewModel)
+            HomeScreen(
+                navController = navController,
+                cubeViewModel = cubeViewModel,
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .safeContentPadding()
+            )
         }
         composable(
             route = Step.route + "/{stepId}",
@@ -30,6 +41,9 @@ fun CubeAppNavigation(cubeViewModel: CubeViewModel) {
                 stepId = stepId,
                 navController = navController,
                 cubeViewModel = cubeViewModel,
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .safeContentPadding()
             )
         }
     }

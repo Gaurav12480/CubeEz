@@ -25,7 +25,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.cubeez.database.CompletedCase
-import com.example.cubeez.model.Case
 import com.example.cubeez.viewmodel.CubeViewModel
 
 @SuppressLint("ConfigurationScreenWidthHeight")
@@ -41,8 +40,8 @@ fun DetailScreen(
     val step = steps.find { it.stepId == stepId }
     val stepName = step?.stepName
     val stepDescription = step?.stepDescription
-    var selectedCase by rememberSaveable {
-        mutableStateOf<Case?>(null)
+    var selectedCaseId by rememberSaveable {
+        mutableStateOf<Int?>(null)
     }
 
     val configuration = LocalConfiguration.current
@@ -86,7 +85,7 @@ fun DetailScreen(
                             title = it.caseId,
                             checked = checked,
                             onCheckedChange = { cubeViewModel.toggle(CompletedCase(stepId, it.caseId)) },
-                            onCardClick = { selectedCase = it }
+                            onCardClick = { selectedCaseId = it.caseId }
                         )
                     }
                 }
@@ -131,11 +130,15 @@ fun DetailScreen(
                         title = it.caseId,
                         checked = checked,
                         onCheckedChange = { cubeViewModel.toggle(CompletedCase(stepId, it.caseId))},
-                        onCardClick = { selectedCase = it }
+                        onCardClick = { selectedCaseId = it.caseId }
                     )
                 }
             }
         }
+        val selectedCase = step?.cases?.find {
+            it.caseId == selectedCaseId
+        }
+
         selectedCase?.let { case ->
 
             val checked by cubeViewModel
@@ -143,7 +146,7 @@ fun DetailScreen(
                 .collectAsState(false)
 
             CaseDialog(
-                onDismiss = { selectedCase = null },
+                onDismiss = { selectedCaseId = null },
                 image = case.caseImage,
                 title = case.caseId,
                 description = case.caseDescription,
