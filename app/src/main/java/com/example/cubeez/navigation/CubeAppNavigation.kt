@@ -1,8 +1,7 @@
 package com.example.cubeez.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,7 +26,6 @@ fun CubeAppNavigation(cubeViewModel: CubeViewModel) {
                 cubeViewModel = cubeViewModel,
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
-                    .safeContentPadding()
             )
         }
         composable(
@@ -43,7 +41,7 @@ fun CubeAppNavigation(cubeViewModel: CubeViewModel) {
                 cubeViewModel = cubeViewModel,
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
-                    .safeContentPadding()
+                    .safeDrawingPadding()
             )
         }
     }

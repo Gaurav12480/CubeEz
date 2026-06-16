@@ -48,8 +48,8 @@ fun ProgressBar(progress: Float, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .padding(start = 12.dp, end = 12.dp, bottom = 12.dp)
             .height(32.dp)
-            .padding(horizontal = 8.dp)
             .clip(clipShape)
             .background(backgroundColor)
             .border(width = 4.dp, color = MaterialTheme.colorScheme.onBackground, shape = clipShape)
